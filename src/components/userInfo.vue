@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="box">
+    <div class="box" v-if="currentUser">
       <div class="flex">
         <div class=" w-30">
           <label>Name : </label>
@@ -43,9 +43,39 @@
             <input type="text" :value="currentUser.address.geo.lng" disabled>
           </div>
         </div>
-        <div class="flex">
-
+        <div class="flex-end">
+          <button @click="showMore()"> {{ show?'Hide':'Show' }} More Data</button>
         </div>
+        <div v-if="show">
+          <div class="flex">
+            <div class="w-50">
+              <label>Phone Number : </label>
+              <span>{{ currentUser.phone }}</span>
+            </div>
+            <div class="w-50">
+              <label>Web Site : </label>
+              <a :href="'http://'+currentUser.website" target="_blank" class="nolink">{{ currentUser.website }}</a>
+            </div>
+            <div class="w-30"></div>
+          </div>
+          <h5 class="header-info"> Company Informations</h5>
+          <div class="">
+            <div class="mt-1 centred">
+              <label>Company Name : </label>
+              <span>{{ currentUser.company.name }}</span>
+            </div>
+            <div class="mt-1 centred">
+              <label>Company Catch Phrase : </label>
+              <span>{{ currentUser.company.catchPhrase }}</span>
+            </div>
+            <div class="mt-1 centred">
+              <label>BS : </label>
+              <span>{{ currentUser.company.bs }}</span>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -54,6 +84,16 @@
 <script>
 export default {
   name: 'UserInfo',
+  data() {
+    return {
+      show: false
+    }
+  },
+  methods: {
+    showMore: function () {
+      this.show = !this.show
+    }
+  },
   computed: {
     currentUser: function () {
       return this.$store.state.currentUser
@@ -61,7 +101,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .flex {
   display: flex;
   justify-content: space-between;
@@ -70,9 +110,17 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
+.flex-end{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 5%;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 .w-30 {
-  width: 50%;
+  width: 30%;
 }
 
 .text-center {
@@ -81,6 +129,10 @@ export default {
 
 .w-25 {
   width: 25%;
+}
+
+.w-50 {
+  width: 50%;
 }
 
 .box {
@@ -97,6 +149,18 @@ export default {
   margin-top: 2px;
   margin-bottom: 2px;
   width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.mt-1{
+  margin-top: 10px;
+}
+.nolink {
+  text-decoration: none;
+  color: darkblue;
+}
+.centred{
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
 }

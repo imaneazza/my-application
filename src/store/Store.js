@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
-import axios from 'axios'
+import {addNewTodoItem, getTodosforUser} from '../services/servicesList'
 
 Vue.use(Vuex)
 
@@ -10,18 +10,26 @@ export const store = new Vuex.Store({
     todoList: []
   },
   mutations: {
-    setUser (state, newUser) {
+    setUser(state, newUser) {
       state.currentUser = newUser
     },
-    setTodos (state, todos) {
+    setTodos(state, todos) {
       state.todoList = todos
     }
   },
   actions: {
-    updateUser (context, payload) {
+    updateUser(context, payload) {
       context.commit('setUser', payload)
-      axios.get('https://jsonplaceholder.typicode.com/todos?userId=1').then(todos => {
+      getTodosforUser(1).then(todos => {
         context.commit('setTodos', todos.data)
+      })
+    },
+    addTodoForUser(context, payload) {
+      addNewTodoItem(payload.todo).then(todos => {
+        getTodosforUser(1).then(todos => {
+          context.commit('setTodos', todos.data)
+
+        })
       })
     }
   }
