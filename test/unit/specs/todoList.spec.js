@@ -1,7 +1,6 @@
 import TodoList from '../../../src/components/todoList'
 import {createLocalVue, mount} from '@vue/test-utils'
 import Vuex from 'vuex'
-import {actions} from '../../../src/store/actions'
 import {mutations} from '../../../src/store/mutations'
 
 const localVue = createLocalVue()
@@ -15,38 +14,37 @@ describe('todoList.vue', () => {
         currentUser: null,
         todoList: []
       },
-      actions,
-      mutations
-    }
-    wrapper = mount(TodoList, {
-      computed: {
-        currentUser: () => 'Test data ',
-        todosList: () => [
-
-          {
-            'userId': 1,
-            'id': 1,
-            'title': 'delectus aut autem',
-            'completed': false
-          },
-          {
-            'userId': 1,
-            'id': 2,
-            'title': 'quis ut nam facilis et officia qui',
-            'completed': false
-          },
-          {
-            'userId': 1,
-            'id': 3,
-            'title': 'fugiat veniam minus',
-            'completed': false
-          }]
+      actions: {
+        addTodoForUser: jest.fn()
       },
-      global: {
-        provide: {
-          store: store
+      mutations,
+      getters: {
+        todoList () {
+          return [
+
+            {
+              'userId': 1,
+              'id': 1,
+              'title': 'delectus aut autem',
+              'completed': false
+            },
+            {
+              'userId': 1,
+              'id': 2,
+              'title': 'quis ut nam facilis et officia qui',
+              'completed': false
+            },
+            {
+              'userId': 1,
+              'id': 3,
+              'title': 'fugiat veniam minus',
+              'completed': false
+            }]
         }
       }
+    }
+    wrapper = mount(TodoList, {
+      localVue, store
     })
   })
   it('should be mounted', () => {
@@ -73,5 +71,4 @@ describe('todoList.vue', () => {
     wrapper.vm.CancelEntry()
     expect(wrapper.vm.showAddMenu).toEqual(false)
   })
- 
 })

@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <h2 class="center-header">Todo List for the User {{ $store.getters.currentUser }}</h2>
+    <h2 class="center-header">Todo List for the User {{ currentUser}}</h2>
     <span v-if="showSuccess" class="completed"> Todo added Successfully ! </span>
     <div class="operations">
       <form class="flex-start w-80" v-if="showAddMenu">
@@ -20,7 +20,7 @@
       <button @click="CancelEntry()" v-if="showAddMenu">Cancel</button>
     </div>
 
-    <div v-for="item in $store.state.todoList" :key="item.id" class="w-25 div-inline">
+    <div v-for="item in todoList" :key="item.id" class="w-25 div-inline">
       <span class="spanTitle w-100">{{ item.title }}</span>
       <span class="status w-100" :class="classTodo(item.completed)">{{
           item.completed ? 'completed' : 'Remaining'
@@ -67,7 +67,7 @@ export default {
       this.showAddMenu = true
       this.$store.dispatch('addTodoForUser', {
         todo: this.newEntry
-      }).then(data => {
+      }).then(() => {
         this.showSuccess = true
         setTimeout(() => {
           this.showSuccess = false
@@ -131,11 +131,6 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
-
-.mt-1 {
-  margin-top: 10px;
-}
-
 .mx-1 {
   margin-left: 5px;
   margin-right: 5px;

@@ -1,46 +1,46 @@
 <template>
   <div>
-    <div class="box" v-if="currentUser">
+    <div class="box" v-if="fullUser">
       <div class="flex">
         <div class=" w-30">
           <label>Name : </label>
-          <span>{{ currentUser.name }}</span>
+          <span>{{ fullUser.name }}</span>
         </div>
         <div class=" w-30">
           <label>UserName : </label>
-          <span>{{ currentUser.username }}</span>
+          <span>{{ fullUser.username }}</span>
         </div>
         <div class=" w-30">
           <label>Email : </label>
-          <span>{{ currentUser.email }}</span>
+          <span>{{ fullUser.email }}</span>
         </div>
       </div>
       <div>
         <h5 class="header-info">Address Information</h5>
-        <div class="flex">
+        <div class="flex" v-if="fullUser.address">
           <div class="w-25">
             <label>Street : </label>
-            <span>{{ currentUser.address.street }}</span>
+            <span>{{ fullUser.address.street }}</span>
           </div>
           <div class="w-25">
             <label>Suite : </label>
-            <span>{{ currentUser.address.suite }}</span>
+            <span>{{ fullUser.address.suite }}</span>
           </div>
           <div class="w-25">
             <label>City : </label>
-            <span>{{ currentUser.address.city }}</span>
+            <span>{{ fullUser.address.city }}</span>
           </div>
           <div class="w-25">
             <label>zipcode : </label>
-            <span>{{ currentUser.address.zipcode }}</span>
+            <span>{{ fullUser.address.zipcode }}</span>
           </div>
         </div>
-        <div class="flex">
+        <div class="flex" v-if="fullUser.address">
           <div class="w-30 text-center">
-            <input type="text" :value="currentUser.address.geo.lat" disabled>
+            <input type="text" :value="fullUser.address.geo.lat" disabled>
           </div>
           <div class="w-30 text-center">
-            <input type="text" :value="currentUser.address.geo.lng" disabled>
+            <input type="text" :value="fullUser.address.geo.lng" disabled>
           </div>
         </div>
         <div class="flex-end">
@@ -50,27 +50,27 @@
           <div class="flex">
             <div class="w-50">
               <label>Phone Number : </label>
-              <span>{{ currentUser.phone }}</span>
+              <span>{{ fullUser.phone }}</span>
             </div>
             <div class="w-50">
               <label>Web Site : </label>
-              <a :href="'http://'+currentUser.website" target="_blank" class="nolink">{{ currentUser.website }}</a>
+              <a :href="'http://'+fullUser.website" target="_blank" class="nolink">{{ fullUser.website }}</a>
             </div>
             <div class="w-30"></div>
           </div>
           <h5 class="header-info"> Company Informations</h5>
-          <div class="">
+          <div v-if="fullUser.company">
             <div class="mt-1 centred">
               <label>Company Name : </label>
-              <span>{{ currentUser.company.name }}</span>
+              <span>{{ fullUser.company.name }}</span>
             </div>
             <div class="mt-1 centred">
               <label>Company Catch Phrase : </label>
-              <span>{{ currentUser.company.catchPhrase }}</span>
+              <span>{{ fullUser.company.catchPhrase }}</span>
             </div>
             <div class="mt-1 centred">
               <label>BS : </label>
-              <span>{{ currentUser.company.bs }}</span>
+              <span>{{ fullUser.company.bs }}</span>
             </div>
 
           </div>
@@ -98,7 +98,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentUser'
+      'fullUser'
     ])
   }
 }
