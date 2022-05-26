@@ -2,6 +2,7 @@ const path = require('path')
 
 module.exports = {
   rootDir: path.resolve(__dirname, '../../'),
+  testURL: 'http://localhost/',
   moduleFileExtensions: [
     'js',
     'json',
@@ -17,6 +18,7 @@ module.exports = {
   testPathIgnorePatterns: [
     '<rootDir>/test/e2e'
   ],
+  verbose: true,
   snapshotSerializers: ['<rootDir>/node_modules/jest-serializer-vue'],
   setupFiles: ['<rootDir>/test/unit/setup'],
   mapCoverage: true,

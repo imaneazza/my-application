@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <h2 class="center-header">Todo List for the User {{ currentUser }}</h2>
+    <h2 class="center-header">Todo List for the User {{ $store.getters.currentUser }}</h2>
     <span v-if="showSuccess" class="completed"> Todo added Successfully ! </span>
     <div class="operations">
       <form class="flex-start w-80" v-if="showAddMenu">
@@ -16,12 +16,11 @@
 
       </form>
       <button @click="addTodoItem()" v-if="!showAddMenu">Add new Todo</button>
-      <button @click="validateEntry()" v-if="showAddMenu" class="mx-1">Validate</button>
+      <button @click="ValidateEntry()" v-if="showAddMenu" class="mx-1">Validate</button>
       <button @click="CancelEntry()" v-if="showAddMenu">Cancel</button>
     </div>
 
-
-    <div v-for="item in todosList" :key="item.id" class="w-25 div-inline">
+    <div v-for="item in $store.state.todoList" :key="item.id" class="w-25 div-inline">
       <span class="spanTitle w-100">{{ item.title }}</span>
       <span class="status w-100" :class="classTodo(item.completed)">{{
           item.completed ? 'completed' : 'Remaining'
@@ -32,15 +31,15 @@
 </template>
 <script>
 
+import {mapGetters} from 'vuex'
+
 export default {
   name: 'TodoList',
   computed: {
-    currentUser: function () {
-      return this.$store.state.currentUser ? this.$store.state.currentUser.name : null
-    },
-    todosList: function () {
-      return this.$store.state.todoList
-    }
+    ...mapGetters([
+      'currentUser', 'todoList'
+    ])
+
   },
   data () {
     return {
@@ -64,15 +63,15 @@ export default {
     addTodoItem: function () {
       this.showAddMenu = true
     },
-    validateEntry: function () {
-      this.showAddMenu = false
+    ValidateEntry: function () {
+      this.showAddMenu = true
       this.$store.dispatch('addTodoForUser', {
         todo: this.newEntry
       }).then(data => {
         this.showSuccess = true
         setTimeout(() => {
-            this.showSuccess = false
-          }, 4000
+          this.showSuccess = false
+        }, 4000
         )
       })
     },

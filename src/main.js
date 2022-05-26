@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import {store} from './store/Store'
-import {getUserInformation} from './services/servicesList';
+import {getUserInformation} from './services/servicesList'
 
 Vue.config.productionTip = false
 

@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="flex-end">
-          <button @click="showMore()"> {{ show?'Hide':'Show' }} More Data</button>
+          <button @click="showMore()"> {{ show ? 'Hide' : 'Show' }} More Data</button>
         </div>
         <div v-if="show">
           <div class="flex">
@@ -82,9 +82,11 @@
   </div>
 </template>
 <script>
+import {mapGetters} from 'vuex'
+
 export default {
   name: 'UserInfo',
-  data() {
+  data () {
     return {
       show: false
     }
@@ -95,9 +97,9 @@ export default {
     }
   },
   computed: {
-    currentUser: function () {
-      return this.$store.state.currentUser
-    }
+    ...mapGetters([
+      'currentUser'
+    ])
   }
 }
 </script>
@@ -110,7 +112,8 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
-.flex-end{
+
+.flex-end {
   display: flex;
   justify-content: flex-end;
   margin-top: 5%;
@@ -152,14 +155,17 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
-.mt-1{
+
+.mt-1 {
   margin-top: 10px;
 }
+
 .nolink {
   text-decoration: none;
   color: darkblue;
 }
-.centred{
+
+.centred {
   width: 80%;
   margin-left: auto;
   margin-right: auto;
