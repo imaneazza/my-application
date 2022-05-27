@@ -1,7 +1,6 @@
 <template>
   <div>
-
-    <h2 class="center-header">Todo List for the User {{ currentUser}}</h2>
+    <h2 class="center-header">Todo List for the User {{ currentUser }}</h2>
     <span v-if="showSuccess" class="completed"> Todo added Successfully ! </span>
     <div class="operations">
       <form class="flex-start w-80" v-if="showAddMenu">
@@ -64,7 +63,7 @@ export default {
       this.showAddMenu = true
     },
     ValidateEntry: function () {
-      this.showAddMenu = true
+      this.showAddMenu = false
       this.$store.dispatch('addTodoForUser', {
         todo: this.newEntry
       }).then(() => {
@@ -131,6 +130,7 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
+
 .mx-1 {
   margin-left: 5px;
   margin-right: 5px;

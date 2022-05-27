@@ -1,9 +1,9 @@
 import {createLocalVue, mount} from '@vue/test-utils'
 import Vuex from 'vuex'
-import {actions} from '../../../src/store/actions'
-import {mutations} from '../../../src/store/mutations'
-import UserInfo from '../../../src/components/userInfo'
-import {getter} from '../../../src/store/getter'
+import {actions} from '../../../../src/store/actions'
+import {mutations} from '../../../../src/store/mutations'
+import UserInfo from '../../../../src/components/userInfo'
+import {getter} from '../../../../src/store/getter'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)

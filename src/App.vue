@@ -7,7 +7,6 @@
       <li class="link">
         <router-link :to="{ name: 'userList' }">User Information</router-link>
       </li>
-      <li class="link">Post and Comments</li>
     </ul>
     <router-view/>
   </div>
