@@ -40,6 +40,9 @@ describe('todoList.vue', () => {
               'title': 'fugiat veniam minus',
               'completed': false
             }]
+        },
+        currentUser () {
+          return 'This is a test CurrentUser'
         }
       }
     }
