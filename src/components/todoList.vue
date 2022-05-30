@@ -1,30 +1,42 @@
 <template>
   <div>
-    <h2 class="center-header">Todo List for the User {{ currentUser }}</h2>
-    <span v-if="showSuccess" class="completed"> Todo added Successfully ! </span>
-    <div class="operations">
-      <form class="flex-start w-80" v-if="showAddMenu">
-        <div class="w-30" style="margin-right: 20px">
-          <label for="titleEntry"> Title of the task</label>
-          <input type="text" v-model="newEntry.title" required id="titleEntry">
-        </div>
-        <div class="w-30">
-          <label for="completed">state</label>
-          <input type="checkbox" v-model="newEntry.completed" id="completed">
-        </div>
+    <el-card shadow="never" class="my-card">
+      <div slot="header" class="clearfix border-none">
+        <span>Todo List for the User {{ currentUser }}</span>
+        <el-button class="button-right" type="primary" @click="addTodoItem()">Add new Todo</el-button>
+      </div>
+      <el-alert
+        title="Todo added Successfully !" v-if="showSuccess"
+        type="success">
+      </el-alert>
+      <el-form :inline="true" :model="newEntry" class="demo-form-inline" v-if="showAddMenu">
+        <el-form-item label="Title of the task">
+          <el-input v-model="newEntry.title" placeholder="Title of the task" size="small"></el-input>
+        </el-form-item>
+        <el-form-item label="State">
+          <el-switch v-model="newEntry.completed" active-text="Completed"
+                     inactive-text="Remaining"></el-switch>
+        </el-form-item>
+        <el-form-item style="float: right">
+          <el-button class="mx-3 button-right" type="primary" @click="ValidateEntry()">Validate</el-button>
+          <el-button class="button-right" type="primary" @click="CancelEntry()">Cancel</el-button>
 
-      </form>
-      <button @click="addTodoItem()" v-if="!showAddMenu">Add new Todo</button>
-      <button @click="ValidateEntry()" v-if="showAddMenu" class="mx-1">Validate</button>
-      <button @click="CancelEntry()" v-if="showAddMenu">Cancel</button>
-    </div>
+        </el-form-item>
+      </el-form>
+      <el-row :gutter="20">
+        <el-col :span="6" v-for="item in todoList" :key="item.id">
+          <el-card class="box-card my-2" :key="item.id" shadow="never">
+            <span class="spanTitle w-100">{{ item.title }}</span>
+            <span class="status w-100" :class="classTodo(item.completed)">{{
+                item.completed ? 'completed' : 'Remaining'
+              }}</span>
+          </el-card>
+        </el-col>
 
-    <div v-for="item in todoList" :key="item.id" class="w-25 div-inline">
-      <span class="spanTitle w-100">{{ item.title }}</span>
-      <span class="status w-100" :class="classTodo(item.completed)">{{
-          item.completed ? 'completed' : 'Remaining'
-        }}</span>
-    </div>
+      </el-row>
+
+    </el-card>
+
   </div>
 
 </template>
@@ -89,13 +101,6 @@ export default {
   color: orange;
 }
 
-.div-inline {
-  display: inline-block;
-  border: 1px solid darkgray;
-  margin: 5px 2%;
-  padding: 5px;
-}
-
 .w-100 {
   width: 100%;
 }
@@ -113,31 +118,14 @@ export default {
   margin: 5px 2px
 }
 
-.w-25 {
-  width: 25%;
+.button-right {
+  float: right;
+  padding: 6px
 }
 
-.center-header {
-  text-align: center;
-  font-weight: 600;
-  font-size: 14px;
+.box-card {
+  height: 90px !important;
+  padding: 6px !important;
 }
 
-.operations {
-  text-align: right;
-  width: 75%;
-  margin: 3px auto;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.mx-1 {
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-.w-80 {
-  width: 80%;
-
-}
 </style>
