@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {getTodosforUser, getUserInformation} from '../../../../src/services/servicesList'
+import {addNewTodoItem, getTodosforUser, getUserInformation} from '../../../../src/services/servicesList'
 
 jest.mock('axios')
 describe('servicesList', () => {
@@ -29,7 +29,6 @@ describe('servicesList', () => {
     }
     axios.get.mockResolvedValueOnce(user)
     const result = await getUserInformation(1)
-
     expect(axios.get).toHaveBeenCalledWith(`https://jsonplaceholder.typicode.com/users/1`)
     expect(result).toEqual(user)
   })
@@ -37,8 +36,13 @@ describe('servicesList', () => {
     const todos = []
     axios.get.mockResolvedValueOnce(todos)
     const result = await getTodosforUser(1)
-
     expect(axios.get).toHaveBeenCalledWith(`https://jsonplaceholder.typicode.com/users/1/todos`)
     expect(result).toEqual(todos)
+  })
+  it('should add  todos for user', async () => {
+    const todos = {}
+    axios.post.mockResolvedValueOnce(todos)
+    await addNewTodoItem(todos)
+    expect(axios.post).toHaveBeenCalledWith(`https://jsonplaceholder.typicode.com/todos`,{})
   })
 })
